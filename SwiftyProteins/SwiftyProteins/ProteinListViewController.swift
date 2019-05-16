@@ -8,6 +8,12 @@
 
 import UIKit
 
+extension ProteinListViewController: UISearchResultsUpdating {
+    // MARK: - UISearchResultsUpdating Delegate
+    func updateSearchResults(for searchController: UISearchController) {
+        // TODO
+    }
+}
 extension ProteinListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -37,11 +43,25 @@ extension ProteinListViewController: UITableViewDataSource {
 
 class ProteinListViewController: UIViewController {
 
+    var filterLigands = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let searchController = UISearchController(searchResultsController: nil)
+        
+//        searchController.searchResultsUpdater = self as! UISearchResultsUpdating
+//        searchController.obscuresBackgroundDuringPresentation = false
+//        searchController.searchBar.placeholder = "Search Candies"
+//        navigationItem.searchController = searchController
+//        definesPresentationContext = true
+        
+        
         //print("123", DataController.allProteins)
         // Do any additional setup after loading the view.
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
          self.navigationController?.isNavigationBarHidden = false
