@@ -20,8 +20,9 @@ class ProteinViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
         
-        let url = "http://www.rcsb.org/pdb/rest/describeHet?chemicalID=" + DataController.currentLigand!
-        Alamofire.request(url).responseJSON { response in
+        //let url = "http://www.rcsb.org/pdb/rest/describeHet?chemicalID=" + DataController.currentLigand!
+        let url = "http://www.rcsb.org/pdb/rest/describeHet?chemicalID=04g"
+        Alamofire.request(url).responseString { response in
             guard response.result.isSuccess else {
                 print("Ошибка при запросе данных \(String(describing: response.result.error))")
                 return

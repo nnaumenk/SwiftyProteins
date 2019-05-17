@@ -16,6 +16,7 @@
 		7D64F3B1228BEF2B002BE1E5 /* ProteinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D64F3B0228BEF2B002BE1E5 /* ProteinViewController.swift */; };
 		7D64F3B5228C0118002BE1E5 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D64F3B4228C0118002BE1E5 /* DataController.swift */; };
 		7D64F3C3228C55E8002BE1E5 /* ligands.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7D64F3C2228C55E8002BE1E5 /* ligands.txt */; };
+		7DED87E5228F15C40060C568 /* Ligand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DED87E4228F15C40060C568 /* Ligand.swift */; };
 		CFC43AE6AE1B8310C651FAB2 /* Pods_SwiftyProteins.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52CAC71CBCE0CECDA0BE32D0 /* Pods_SwiftyProteins.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		7D64F3B0228BEF2B002BE1E5 /* ProteinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinViewController.swift; sourceTree = "<group>"; };
 		7D64F3B4228C0118002BE1E5 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		7D64F3C2228C55E8002BE1E5 /* ligands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ligands.txt; sourceTree = "<group>"; };
+		7DED87E4228F15C40060C568 /* Ligand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ligand.swift; sourceTree = "<group>"; };
 		8BCF6786C5278A45E3E5B5B3 /* Pods-SwiftyProteins.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftyProteins.debug.xcconfig"; path = "Target Support Files/Pods-SwiftyProteins/Pods-SwiftyProteins.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,6 +75,7 @@
 				7D64F39E228BEDF2002BE1E5 /* LoginViewController.swift */,
 				7D64F3AE228BEF0E002BE1E5 /* ProteinListViewController.swift */,
 				7D64F3B0228BEF2B002BE1E5 /* ProteinViewController.swift */,
+				7DED87E4228F15C40060C568 /* Ligand.swift */,
 				7D64F3A0228BEDF2002BE1E5 /* Main.storyboard */,
 				7D64F3B4228C0118002BE1E5 /* DataController.swift */,
 				7D64F3A3228BEDF3002BE1E5 /* Assets.xcassets */,
@@ -176,16 +179,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SwiftyProteins/Pods-SwiftyProteins-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/YLProgressBar/YLProgressBar.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YLProgressBar.framework",
@@ -220,6 +219,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DED87E5228F15C40060C568 /* Ligand.swift in Sources */,
 				7D64F3B5228C0118002BE1E5 /* DataController.swift in Sources */,
 				7D64F39F228BEDF2002BE1E5 /* LoginViewController.swift in Sources */,
 				7D64F39D228BEDF2002BE1E5 /* AppDelegate.swift in Sources */,

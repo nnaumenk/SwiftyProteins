@@ -92,7 +92,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="967" y="117"/>
+            <point key="canvasLocation" x="1074" y="116"/>
         </scene>
         <!--Protein List View Controller-->
         <scene sceneID="82e-d7-m3Q">
@@ -180,7 +180,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="icz-YG-YFX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="76" y="116"/>
+            <point key="canvasLocation" x="351" y="116"/>
         </scene>
     </scenes>
     <resources>
