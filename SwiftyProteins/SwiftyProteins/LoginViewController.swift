@@ -108,20 +108,11 @@ class LoginViewController: UIViewController {
     
     
     func addNotifications() {
-//        NotificationCenter.default.addObserver(forName: .UIApplicationWillResignActive, object: nil, queue: nil) { _ in
-//            print("OK")
-//            self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-//            //self.
-//             //self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-//        }
-//
-//        NotificationCenter.default.addObserver(forName: .UIApplicationDidBecomeActive, object: nil, queue: nil) { _ in
-//            print("OK")
-//            self.navigationController?.popToRootViewController(animated: true)
-//            //self.
-//            //self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-//        }
-        
+        NotificationCenter.default.addObserver(forName: .UIApplicationWillResignActive, object: nil, queue: nil) { _ in
+            
+            self.navigationController?.popToRootViewController(animated: true)
+          
+        }
     }
     
     ////////////////////////////////////////////////////// view life cycle
@@ -135,7 +126,7 @@ class LoginViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     override func didReceiveMemoryWarning() {
