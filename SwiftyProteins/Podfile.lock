@@ -1,3 +1,20 @@
-PODFILE CHECKSUM: bab0bae97a6b10de14431f0ab92a0e8dfd021a7c
+PODS:
+  - Alamofire (4.8.2)
+  - YLProgressBar (3.11.0)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.0)
+  - YLProgressBar (~> 3.11.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - YLProgressBar
+
+SPEC CHECKSUMS:
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  YLProgressBar: 0c0796a6e9b5e5d5040d15c8911e802b67ccb939
+
+PODFILE CHECKSUM: f76f27bbb40eef7279f38a610ed8c783bb168044
 
 COCOAPODS: 1.6.1

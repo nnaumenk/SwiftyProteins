@@ -8,12 +8,25 @@
 
 import UIKit
 
-extension ProteinListViewController: UISearchResultsUpdating {
-    // MARK: - UISearchResultsUpdating Delegate
-    func updateSearchResults(for searchController: UISearchController) {
-        // TODO
+extension ProteinListViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            allLigands = DataController.allLigands
+            tableViewLigand.reloadData()
+            return
+        }
+        
+        allLigands = DataController.allLigands.filter({
+            if ($0.lowercased().contains(searchText.lowercased())) {
+                return true
+            }
+            return false
+        })
+        tableViewLigand.reloadData()
     }
 }
+
 extension ProteinListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -21,14 +34,11 @@ extension ProteinListViewController: UITableViewDelegate {
         performSegue(withIdentifier: "segueToProteinViewController", sender: nil)
     }
     
-    
-    
 }
 
 extension ProteinListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allLigands.count
-        //return DataController.allProteins.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -43,28 +53,22 @@ extension ProteinListViewController: UITableViewDataSource {
 
 class ProteinListViewController: UIViewController {
 
-    var filterLigands = [String]()
+    var allLigands: [String]!
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableViewLigand: UITableView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let searchController = UISearchController(searchResultsController: nil)
-        
-//        searchController.searchResultsUpdater = self as! UISearchResultsUpdating
-//        searchController.obscuresBackgroundDuringPresentation = false
-//        searchController.searchBar.placeholder = "Search Candies"
-//        navigationItem.searchController = searchController
-//        definesPresentationContext = true
-        
-        
-        //print("123", DataController.allProteins)
-        // Do any additional setup after loading the view.
+        allLigands = DataController.allLigands
     }
-    
-    
+  
+//    override func viewWillAppear(_ animated: Bool) {
+//         self.navigationController?.isNavigationBarHidden = true
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
-         self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.isNavigationBarHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,5 +76,11 @@ class ProteinListViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+   
+//    applicationWillResignActive:(UIApplication *)application
+//    {
+//    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+//    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+//    }
 
 }

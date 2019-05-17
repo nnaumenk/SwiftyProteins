@@ -11,24 +11,15 @@ import LocalAuthentication
 
 extension LoginViewController {
     
-}
-
-
-
-extension LoginViewController {
-    
     func showAlertController(_ message: String) {
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alertController, animated: true, completion: nil)
     }
-    
+
 }
 
-
-
 extension LoginViewController {
-    
     func checkTouchID() {
         let context = LAContext()
         var error: NSError?
@@ -39,7 +30,6 @@ extension LoginViewController {
             isAvailableTouchID = false
         }
     }
-    
 }
 
 
@@ -81,16 +71,22 @@ class LoginViewController: UIViewController {
         
         context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason, reply: {(success, error) in
             if success {
-                self.showAlertController("authentication succeeded")
+                //self.showAlertController("authentication succeeded")
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "segueToProteinListViewController", sender: nil)
+                }
             }
             else {
-                self.showAlertController("authentication failed")
+                DispatchQueue.main.async {
+                    self.showAlertController("authentication failed")
+                }
             }
-            self.textBoxLogin.isEnabled = true
-            self.textBoxPassword.isEnabled = true
-            self.buttonTouchID.isEnabled = true
         })
+        self.textBoxLogin.isEnabled = true
+        self.textBoxPassword.isEnabled = true
+        self.buttonTouchID.isEnabled = true
     }
+    
     
     @IBAction func buttonPressedNext(_ sender: Any) {
         
@@ -111,31 +107,44 @@ class LoginViewController: UIViewController {
     ///////////////////////////////////////////////////////// actions
     
     
+    func addNotifications() {
+//        NotificationCenter.default.addObserver(forName: .UIApplicationWillResignActive, object: nil, queue: nil) { _ in
+//            print("OK")
+//            self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+//            //self.
+//             //self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+//        }
+//
+//        NotificationCenter.default.addObserver(forName: .UIApplicationDidBecomeActive, object: nil, queue: nil) { _ in
+//            print("OK")
+//            self.navigationController?.popToRootViewController(animated: true)
+//            //self.
+//            //self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+//        }
+        
+    }
     
     ////////////////////////////////////////////////////// view life cycle
     
     override func viewDidLoad() {
+        print("\n1\n")
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
         checkTouchID()
+        addNotifications()
         
-       // readAllProteins()
-    
     }
-    
-//    override func viewDidDisappear(_ animated: Bool) {
-//        self.navigationController?.isNavigationBarHidden = false
-//    }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = true
+        //self.navigationController?.isNavigationBarHidden = true
     }
     
-    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func unwindToLoginViewController(segue: UIStoryboardSegue) {
+        
     }
 
     ///////////////////////////////////////////////////// view life cycle

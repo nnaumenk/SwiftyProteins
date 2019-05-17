@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Mgf-yl-rHF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Login" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Q4-Pd-ZsQ">
-                                <rect key="frame" x="16" y="262.5" width="343" height="52"/>
+                                <rect key="frame" x="16" y="240.5" width="343" height="52"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="fNX-4L-sUZ"/>
@@ -29,7 +29,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Sl-sd-9rh">
-                                <rect key="frame" x="16" y="339.5" width="343" height="52"/>
+                                <rect key="frame" x="16" y="317.5" width="343" height="52"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="Wdu-vY-lrl"/>
@@ -39,7 +39,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UHy-2G-Eeg">
-                                <rect key="frame" x="265" y="405" width="93" height="65"/>
+                                <rect key="frame" x="265" y="383" width="93" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="j2g-j7-7lB"/>
                                     <constraint firstAttribute="width" constant="93" id="urP-I7-fXO"/>
@@ -53,7 +53,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="WNV-7S-a2F">
-                                <rect key="frame" x="308" y="340.5" width="50" height="50"/>
+                                <rect key="frame" x="308" y="318.5" width="50" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="gHw-Il-ldR"/>
@@ -87,12 +87,12 @@
                         <outlet property="buttonTouchID" destination="WNV-7S-a2F" id="ghR-4K-Z1r"/>
                         <outlet property="textBoxLogin" destination="2Q4-Pd-ZsQ" id="lCy-JD-Fut"/>
                         <outlet property="textBoxPassword" destination="0Sl-sd-9rh" id="EaZ-Mz-5pJ"/>
-                        <segue destination="Q73-fg-G9M" kind="show" identifier="segueToProteinListViewController" id="xQH-pz-ezg"/>
+                        <segue destination="eYu-VG-U4h" kind="show" identifier="segueToProteinListViewController" action="showDetailViewController:sender:" id="xQH-pz-ezg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="420" y="116.49175412293854"/>
+            <point key="canvasLocation" x="-154" y="116"/>
         </scene>
         <!--Protein List View Controller-->
         <scene sceneID="82e-d7-m3Q">
@@ -109,6 +109,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="Q73-fg-G9M" id="Xpq-eX-Kl5"/>
+                                    </connections>
                                 </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProteinListCell" id="CJL-de-OA3">
@@ -135,13 +138,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ygx-pA-ksh"/>
                     </view>
+                    <navigationItem key="navigationItem" id="hwB-yt-nAW"/>
                     <connections>
+                        <outlet property="searchBar" destination="jWs-d2-VDO" id="hHD-He-QH8"/>
+                        <outlet property="tableViewLigand" destination="d3w-Hk-99P" id="akR-Oe-6Su"/>
                         <segue destination="635-tk-Qw8" kind="show" identifier="segueToProteinViewController" id="MbM-tG-Vla"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="je9-W5-ay4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1127.2" y="117.39130434782609"/>
+            <point key="canvasLocation" x="1466.4000000000001" y="117.39130434782609"/>
         </scene>
         <!--Protein View Controller-->
         <scene sceneID="ogr-2s-GM1">
@@ -156,25 +162,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7A4-U6-9un" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1852" y="116.49175412293854"/>
+            <point key="canvasLocation" x="2191.1999999999998" y="116.49175412293854"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="uJP-NY-FmK">
+        <scene sceneID="8My-w8-bFL">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Mgf-yl-rHF" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eYu-VG-U4h" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GPw-7u-Ybn">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="osT-j1-xGg">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Xcz-fr-L8E"/>
+                        <segue destination="Q73-fg-G9M" kind="relationship" relationship="rootViewController" id="SF4-28-mmf"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="90D-vo-Dng" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8gp-dx-GQ1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-310" y="116"/>
+            <point key="canvasLocation" x="642" y="117"/>
         </scene>
     </scenes>
     <resources>
