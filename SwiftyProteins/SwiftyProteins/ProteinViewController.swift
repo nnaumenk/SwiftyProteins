@@ -9,46 +9,93 @@
 import UIKit
 import Alamofire
 import SwiftyXMLParser
+import SceneKit
+
+extension ProteinViewController {
+    
+    func getLigandInformation() {
+        let ligand = DataController.currentLigand!
+        let url = "http://ligand-expo.rcsb.org/reports/\(ligand.first!)/\(ligand)/\(ligand)_ideal.pdb"
+        Alamofire.request(url).responseData { response in
+            if let data = response.data {
+                print(data)
+            }
+            print(response.result.value)
+        }
+    }
+}
+
+extension ProteinViewController {
+    
+    func drawLigand() {
+        
+        let scene = SCNScene()
+        scnView.autoenablesDefaultLighting = true
+        
+        // 1
+        let sphere1 = SCNSphere.init(radius: CGFloat(0.5))
+        let sphereNode1 = SCNNode(geometry: sphere1)
+        sphereNode1.position.x = 0
+        sphereNode1.position.y = 0
+        sphereNode1.position.z = 0
+        sphereNode1.light = SCNLight.init()
+        sphereNode1.light?.color = UIColor.red
+       // print("123", sphereNode1.light?.color)
+        scene.rootNode.addChildNode(sphereNode1)
+        
+        
+        
+        // 2
+        let sphere2 = SCNSphere.init(radius: CGFloat(0.5))
+        let sphereNode2 = SCNNode(geometry: sphere2)
+        sphereNode2.position.x = -1.208
+        sphereNode2.position.y = 0
+        sphereNode2.position.z = 0
+        sphereNode2.light = SCNLight.init()
+        sphereNode2.light?.color = UIColor.black
+        //print("123", sphereNode2.light?.color)
+        scene.rootNode.addChildNode(sphereNode2)
+        
+        // 3
+        let sphere3 = SCNSphere.init(radius: CGFloat(0.5))
+        let sphereNode3 = SCNNode(geometry: sphere3)
+        sphereNode3.position.x = 1.208
+        sphereNode3.position.y = 0
+        sphereNode3.position.z = 0
+        sphereNode3.light = SCNLight.init()
+        sphereNode3.light?.color = UIColor.black
+
+        
+        //print("123", sphereNode3.light?.color)
+        scene.rootNode.addChildNode(sphereNode3)
+        
+        scnView.scene = scene
+        
+        //scnView.allowsCameraControl = true
+    }
+}
 
 class ProteinViewController: UIViewController {
 
+    @IBOutlet weak var scnView: SCNView!
+    
+    override func viewDidAppear(_ animated: Bool) {
+        drawLigand()
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("lig", DataController.currentLigand!)
+        
         // Do any additional setup after loading the view.
     }
 
+    
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
         
-        let url = "http://www.rcsb.org/pdb/rest/describeHet?chemicalID=" + DataController.currentLigand!
-        Alamofire.request(url).responseData { response in
-            if let data = response.data {
-                let xml = XML.parse(data)
-                if let element = xml["describeHet"]["ligandInfo"]["ligand"].attributes["molecularWeight"] {
-                    print("weight=", element)
-                }
-                if let element = xml["describeHet"]["ligandInfo"]["ligand"]["formula"].text {
-                    print("formula=", element)
-                }
-            }
-        }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

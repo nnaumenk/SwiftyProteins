@@ -161,9 +161,26 @@
                     <view key="view" contentMode="scaleToFill" id="mMp-GG-kqE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" allowsCameraControl="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f2z-W1-btD">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <connections>
+                                    <outlet property="delegate" destination="635-tk-Qw8" id="NiJ-kZ-lMN"/>
+                                </connections>
+                            </sceneKitView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="f2z-W1-btD" firstAttribute="trailing" secondItem="oxN-TB-Pri" secondAttribute="trailing" id="4n0-hJ-cry"/>
+                            <constraint firstItem="f2z-W1-btD" firstAttribute="bottom" secondItem="oxN-TB-Pri" secondAttribute="bottom" id="4ue-Ro-L0t"/>
+                            <constraint firstItem="f2z-W1-btD" firstAttribute="leading" secondItem="oxN-TB-Pri" secondAttribute="leading" id="hdT-Zt-87r"/>
+                            <constraint firstItem="f2z-W1-btD" firstAttribute="top" secondItem="oxN-TB-Pri" secondAttribute="top" id="pPt-bw-DHs"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="oxN-TB-Pri"/>
                     </view>
+                    <connections>
+                        <outlet property="scnView" destination="f2z-W1-btD" id="TYS-sA-Abe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7A4-U6-9un" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
