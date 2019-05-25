@@ -14,9 +14,9 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A1D612EBCFAD7625112FBE9FEB9D7907"
-               BuildableName = "YLProgressBar.framework"
-               BlueprintName = "YLProgressBar"
+               BlueprintIdentifier = "CE2E23A45826B443376092AB23278581"
+               BuildableName = "SwiftyXMLParser.framework"
+               BlueprintName = "SwiftyXMLParser"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

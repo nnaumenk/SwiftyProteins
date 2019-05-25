@@ -54,17 +54,20 @@ extension ProteinListViewController: UITableViewDataSource {
 class ProteinListViewController: UIViewController {
 
     var allLigands: [String]!
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableViewLigand: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       // self.navigationItem.hidesSearchBarWhenScrolling = false
+        //searchBar.hidesSearchBarWhenScrolling = false
         allLigands = DataController.allLigands
     }
   
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        
     }
 
     override func didReceiveMemoryWarning() {

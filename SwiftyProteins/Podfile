@@ -1,4 +1,4 @@
-platform :ios, '9.0'
+platform :ios, '8.0'
  
 inhibit_all_warnings!
 use_frameworks!
@@ -6,4 +6,5 @@ use_frameworks!
 target 'SwiftyProteins' do
   pod 'YLProgressBar', '~> 3.11.0'
   pod 'Alamofire', '~> 4.0'
+  pod 'SwiftyXMLParser', '~> 3.0'
 end

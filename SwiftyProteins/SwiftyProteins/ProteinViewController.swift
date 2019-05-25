@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SwiftyXMLParser
 
 class ProteinViewController: UIViewController {
 
@@ -20,14 +21,17 @@ class ProteinViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
         
-        //let url = "http://www.rcsb.org/pdb/rest/describeHet?chemicalID=" + DataController.currentLigand!
-        let url = "http://www.rcsb.org/pdb/rest/describeHet?chemicalID=04g"
-        Alamofire.request(url).responseString { response in
-            guard response.result.isSuccess else {
-                print("Ошибка при запросе данных \(String(describing: response.result.error))")
-                return
+        let url = "http://www.rcsb.org/pdb/rest/describeHet?chemicalID=" + DataController.currentLigand!
+        Alamofire.request(url).responseData { response in
+            if let data = response.data {
+                let xml = XML.parse(data)
+                if let element = xml["describeHet"]["ligandInfo"]["ligand"].attributes["molecularWeight"] {
+                    print("weight=", element)
+                }
+                if let element = xml["describeHet"]["ligandInfo"]["ligand"]["formula"].text {
+                    print("formula=", element)
+                }
             }
-            print(response.value as Any)
         }
     }
     
