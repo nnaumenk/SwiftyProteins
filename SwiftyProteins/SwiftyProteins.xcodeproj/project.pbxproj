@@ -16,6 +16,10 @@
 		7D64F3B1228BEF2B002BE1E5 /* ProteinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D64F3B0228BEF2B002BE1E5 /* ProteinViewController.swift */; };
 		7D64F3B5228C0118002BE1E5 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D64F3B4228C0118002BE1E5 /* DataController.swift */; };
 		7D64F3C3228C55E8002BE1E5 /* ligands.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7D64F3C2228C55E8002BE1E5 /* ligands.txt */; };
+		7DC38D49229BEB3E00E6228B /* Atom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC38D48229BEB3E00E6228B /* Atom.swift */; };
+		7DC38D4B229C12B200E6228B /* CylinderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC38D4A229C12B100E6228B /* CylinderLine.swift */; };
+		7DC38D4D229C19B800E6228B /* Stick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC38D4C229C19B800E6228B /* Stick.swift */; };
+		7DC38D4F229C3B9400E6228B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC38D4E229C3B9400E6228B /* Colors.swift */; };
 		7DED87E5228F15C40060C568 /* Ligand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DED87E4228F15C40060C568 /* Ligand.swift */; };
 		CFC43AE6AE1B8310C651FAB2 /* Pods_SwiftyProteins.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52CAC71CBCE0CECDA0BE32D0 /* Pods_SwiftyProteins.framework */; };
 /* End PBXBuildFile section */
@@ -34,6 +38,10 @@
 		7D64F3B0228BEF2B002BE1E5 /* ProteinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinViewController.swift; sourceTree = "<group>"; };
 		7D64F3B4228C0118002BE1E5 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		7D64F3C2228C55E8002BE1E5 /* ligands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ligands.txt; sourceTree = "<group>"; };
+		7DC38D48229BEB3E00E6228B /* Atom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atom.swift; sourceTree = "<group>"; };
+		7DC38D4A229C12B100E6228B /* CylinderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CylinderLine.swift; sourceTree = "<group>"; };
+		7DC38D4C229C19B800E6228B /* Stick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stick.swift; sourceTree = "<group>"; };
+		7DC38D4E229C3B9400E6228B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		7DED87E4228F15C40060C568 /* Ligand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ligand.swift; sourceTree = "<group>"; };
 		8BCF6786C5278A45E3E5B5B3 /* Pods-SwiftyProteins.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftyProteins.debug.xcconfig"; path = "Target Support Files/Pods-SwiftyProteins/Pods-SwiftyProteins.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,7 +86,11 @@
 				7DED87E4228F15C40060C568 /* Ligand.swift */,
 				7D64F3A0228BEDF2002BE1E5 /* Main.storyboard */,
 				7D64F3B4228C0118002BE1E5 /* DataController.swift */,
+				7DC38D48229BEB3E00E6228B /* Atom.swift */,
+				7DC38D4C229C19B800E6228B /* Stick.swift */,
+				7DC38D4E229C3B9400E6228B /* Colors.swift */,
 				7D64F3A3228BEDF3002BE1E5 /* Assets.xcassets */,
+				7DC38D4A229C12B100E6228B /* CylinderLine.swift */,
 				7D64F3C2228C55E8002BE1E5 /* ligands.txt */,
 				7D64F3A5228BEDF3002BE1E5 /* LaunchScreen.storyboard */,
 				7D64F3A8228BEDF3002BE1E5 /* Info.plist */,
@@ -222,11 +234,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DED87E5228F15C40060C568 /* Ligand.swift in Sources */,
+				7DC38D4F229C3B9400E6228B /* Colors.swift in Sources */,
 				7D64F3B5228C0118002BE1E5 /* DataController.swift in Sources */,
 				7D64F39F228BEDF2002BE1E5 /* LoginViewController.swift in Sources */,
+				7DC38D4D229C19B800E6228B /* Stick.swift in Sources */,
 				7D64F39D228BEDF2002BE1E5 /* AppDelegate.swift in Sources */,
 				7D64F3B1228BEF2B002BE1E5 /* ProteinViewController.swift in Sources */,
+				7DC38D49229BEB3E00E6228B /* Atom.swift in Sources */,
 				7D64F3AF228BEF0E002BE1E5 /* ProteinListViewController.swift in Sources */,
+				7DC38D4B229C12B200E6228B /* CylinderLine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
