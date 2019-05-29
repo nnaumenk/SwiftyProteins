@@ -97,7 +97,6 @@ extension ProteinViewController {
         DataController.sticks = []
         
         let strings = string.split(separator: "\n")
-        print("1", strings)
         for string in strings {
             let words = string.split(separator: " ")
             switch words[0] {
@@ -143,59 +142,53 @@ extension ProteinViewController {
         }
     }
     
-    func drawLigand() {
-        
-        let scene = SCNScene()
-        scnView.autoenablesDefaultLighting = true
+    func drawBalls(radius: CGFloat = 0.4) {
         
         for atom in DataController.atoms {
-
-            let sphere = SCNSphere.init(radius: CGFloat(0.4))
+            let sphere = SCNSphere.init(radius: radius)
             let material = SCNMaterial()
             material.diffuse.contents = getColor(name: atom.name)
             sphere.materials = [material]
             
             let node = SCNNode(geometry: sphere)
+            node.name = atom.name
             node.position.x = atom.x
             node.position.y = atom.y
             node.position.z = atom.z
-            scene.rootNode.addChildNode(node)
+            scnView.scene?.rootNode.addChildNode(node)
         }
         
-        print("123", DataController.sticks)
+    }
+    
+    func removeSticks() {
+        for node in (scnView.scene?.rootNode.childNodes)! {
+            if node.geometry is SCNCylinder {
+                node.removeFromParentNode()
+            }
+        }
+    }
+    
+    func drawSticks(radius: CGFloat = 0.04) {
         
         for stick in DataController.sticks {
-            
             let twoPointsNode = SCNNode()
-            scene.rootNode.addChildNode(twoPointsNode.buildLineInTwoPointsWithRotation(
-                from: SCNVector3(stick.x1, stick.y1, stick.z1), to: SCNVector3(stick.x2, stick.y2, stick.z2), radius: 0.04, color: .black))
-            
+            scnView.scene?.rootNode.addChildNode(twoPointsNode.buildLineInTwoPointsWithRotation(
+                from: SCNVector3(stick.x1, stick.y1, stick.z1), to: SCNVector3(stick.x2, stick.y2, stick.z2), radius: radius, color: .gray))
         }
-        
-     
-       
-        //end
-        
-        
-        
-     
-
-    
-        
-        scnView.scene = scene
-        
-        //scnView.allowsCameraControl = true
     }
 }
 
 class ProteinViewController: UIViewController {
 
     @IBOutlet weak var scnView: SCNView!
+    @IBOutlet weak var preferencesView: UIView!
     
     var ligandInfo: String! {
         didSet(newValue) {
             parseData(string: ligandInfo)
-            drawLigand()
+            drawBalls()
+            drawSticks()
+            
         }
     }
     
@@ -203,18 +196,82 @@ class ProteinViewController: UIViewController {
         
     }
     
+    @objc func handleTap(_ sender: UITapGestureRecognizer) {
+        self.title = DataController.currentLigand!
+        
+        let location = sender.location(in: scnView)
+        
+        let hitResults = scnView.hitTest(location, options: nil)
+        
+        if hitResults.count < 1 { return }
+        
+        let node = hitResults[0].node
+        
+        if !(node.geometry is SCNSphere) { return }
+        
+        self.title = node.name!
+//
+//        node.camera = SCNCamera()
+////
+//        let cameraNode = SCNNode()
+////                // 2
+//        cameraNode.camera = SCNCamera()
+       // scnView.pointOfView?.camera.x
+        
+//        let x =  node.position.x / 2
+//        let y =  node.position.y / 2
+//        let z =  node.position.z / 2
+        
+        
+        
+        //scnView.pointOfView?.position = SCNVector3(x, y, z)
+        
+//        scnView.scene?.rootNode.addChildNode(cameraNode)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("loaded")
         getLigand()
+        
+        scnView.scene = SCNScene()
+        //scnView.autoenablesDefaultLighting = true
+        scnView.allowsCameraControl = true
+
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        scnView.addGestureRecognizer(tap)
+        scnView.isUserInteractionEnabled = true
+        //scnView.pointOfView.set
+        
+        // function which is triggered when handleTap is called
+       
         
     }
 
     
     
+    @IBAction func stickThicknessChanged(_ sender: UISlider) {
+        removeSticks()
+        let thickness = CGFloat(sender.value)
+        drawSticks(radius: thickness)
+        
+    }
+    
+    @IBAction func preferencesClicked(_ sender: Any) {
+        
+        if preferencesView.isHidden { preferencesView.isHidden = false }
+        else { preferencesView.isHidden = true }
+    }
+    
+    
+    
+    override func viewDidDisappear(_ animated: Bool) {
+       
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
+        self.title = DataController.currentLigand!
     }
 }

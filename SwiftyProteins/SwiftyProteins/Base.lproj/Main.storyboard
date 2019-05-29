@@ -154,7 +154,7 @@
             </objects>
             <point key="canvasLocation" x="1805.5999999999999" y="117.39130434782609"/>
         </scene>
-        <!--Protein View Controller-->
+        <!--Title-->
         <scene sceneID="ogr-2s-GM1">
             <objects>
                 <viewController id="635-tk-Qw8" customClass="ProteinViewController" customModule="SwiftyProteins" customModuleProvider="target" sceneMemberID="viewController">
@@ -162,23 +162,75 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" allowsCameraControl="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f2z-W1-btD">
+                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" allowsCameraControl="YES" autoenablesDefaultLighting="YES" preferredRenderingAPI="2" translatesAutoresizingMaskIntoConstraints="NO" id="f2z-W1-btD">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="635-tk-Qw8" id="NiJ-kZ-lMN"/>
                                 </connections>
                             </sceneKitView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C9A-zh-ypI">
+                                <rect key="frame" x="175" y="64" width="200" height="200"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thickness of Sticks" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sWh-Ng-5QA">
+                                        <rect key="frame" x="8" y="8" width="85" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="85" id="10v-R9-0iE"/>
+                                            <constraint firstAttribute="height" constant="45" id="7MI-JK-9Tz"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.040000000000000001" minValue="0.01" maxValue="0.29999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="pUZ-Fi-SMv">
+                                        <rect key="frame" x="99" y="16" width="95" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="29" id="h2X-ui-MdS"/>
+                                            <constraint firstAttribute="width" constant="91" id="uqQ-Dw-796"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="stickThicknessChanged:" destination="635-tk-Qw8" eventType="valueChanged" id="Wff-rs-5qR"/>
+                                        </connections>
+                                    </slider>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UEj-Kx-hEe">
+                                        <rect key="frame" x="8" y="61" width="184" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="sWh-Ng-5QA" firstAttribute="leading" secondItem="C9A-zh-ypI" secondAttribute="leading" constant="8" id="1jw-Vc-Dh2"/>
+                                    <constraint firstItem="sWh-Ng-5QA" firstAttribute="top" secondItem="C9A-zh-ypI" secondAttribute="top" constant="8" id="BWO-Qi-zhT"/>
+                                    <constraint firstAttribute="height" constant="200" id="O6g-yD-4Yu"/>
+                                    <constraint firstAttribute="width" constant="200" id="RHq-tZ-3UO"/>
+                                    <constraint firstItem="pUZ-Fi-SMv" firstAttribute="top" secondItem="C9A-zh-ypI" secondAttribute="top" constant="16" id="aSY-Rg-FwB"/>
+                                    <constraint firstItem="pUZ-Fi-SMv" firstAttribute="leading" secondItem="sWh-Ng-5QA" secondAttribute="trailing" constant="8" id="wPB-cW-ufn"/>
+                                    <constraint firstAttribute="trailing" secondItem="pUZ-Fi-SMv" secondAttribute="trailing" constant="8" id="y5w-AC-i6d"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="C9A-zh-ypI" firstAttribute="trailing" secondItem="oxN-TB-Pri" secondAttribute="trailing" id="4Jk-DC-vEZ"/>
                             <constraint firstItem="f2z-W1-btD" firstAttribute="trailing" secondItem="oxN-TB-Pri" secondAttribute="trailing" id="4n0-hJ-cry"/>
                             <constraint firstItem="f2z-W1-btD" firstAttribute="bottom" secondItem="oxN-TB-Pri" secondAttribute="bottom" id="4ue-Ro-L0t"/>
+                            <constraint firstItem="C9A-zh-ypI" firstAttribute="top" secondItem="oxN-TB-Pri" secondAttribute="top" id="68H-4T-vU4"/>
                             <constraint firstItem="f2z-W1-btD" firstAttribute="leading" secondItem="oxN-TB-Pri" secondAttribute="leading" id="hdT-Zt-87r"/>
                             <constraint firstItem="f2z-W1-btD" firstAttribute="top" secondItem="oxN-TB-Pri" secondAttribute="top" id="pPt-bw-DHs"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="oxN-TB-Pri"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="JqG-Bs-9CE">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="preferences64" style="done" id="F3o-Na-gNy">
+                            <connections>
+                                <action selector="preferencesClicked:" destination="635-tk-Qw8" id="Sr9-46-Kul"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="preferencesView" destination="C9A-zh-ypI" id="Dil-eh-kRh"/>
                         <outlet property="scnView" destination="f2z-W1-btD" id="TYS-sA-Abe"/>
                     </connections>
                 </viewController>
@@ -206,6 +258,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="preferences64" width="64" height="64"/>
         <image name="touchID" width="512" height="512"/>
     </resources>
 </document>
