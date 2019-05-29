@@ -34,7 +34,8 @@ extension ProteinViewController {
         let y: Float
         let z: Float
         
-        name = String(words[2]).trimmingCharacters(in: CharacterSet.decimalDigits)
+        //name = String(words[2]).trimmingCharacters(in: CharacterSet.decimalDigits)
+        name = String(describing: words[2].first!)
         
         if let element = Int(words[1]) {
             number = element
@@ -105,6 +106,11 @@ extension ProteinViewController {
             case "CONECT": connect(words)
                 
             default: break
+            }
+        }
+        if DataController.atoms.count == 0 {
+            showAlertController("ligand error") { action -> Void in
+                self.performSegue(withIdentifier: "unwindToProteinListViewController", sender: nil)
             }
         }
         
@@ -188,7 +194,7 @@ class ProteinViewController: UIViewController {
             parseData(string: ligandInfo)
             drawBalls()
             drawSticks()
-            
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
     }
     
@@ -232,6 +238,7 @@ class ProteinViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("loaded")
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         getLigand()
         
         scnView.scene = SCNScene()

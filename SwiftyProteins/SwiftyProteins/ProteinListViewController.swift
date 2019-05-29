@@ -75,4 +75,8 @@ class ProteinListViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func unwindToProteinListViewController(segue: UIStoryboardSegue) {
+        
+    }
+    
 }

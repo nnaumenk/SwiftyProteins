@@ -223,7 +223,7 @@
                         <viewLayoutGuide key="safeArea" id="oxN-TB-Pri"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="JqG-Bs-9CE">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="preferences64" style="done" id="F3o-Na-gNy">
+                        <barButtonItem key="rightBarButtonItem" image="preferences64" style="done" id="F3o-Na-gNy">
                             <connections>
                                 <action selector="preferencesClicked:" destination="635-tk-Qw8" id="Sr9-46-Kul"/>
                             </connections>
@@ -232,9 +232,11 @@
                     <connections>
                         <outlet property="preferencesView" destination="C9A-zh-ypI" id="Dil-eh-kRh"/>
                         <outlet property="scnView" destination="f2z-W1-btD" id="TYS-sA-Abe"/>
+                        <segue destination="U69-f5-YtE" kind="unwind" identifier="unwindToProteinListViewController" unwindAction="unwindToProteinListViewControllerWithSegue:" id="Ge4-WD-Dgb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7A4-U6-9un" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="U69-f5-YtE" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2530.4000000000001" y="116.49175412293854"/>
         </scene>
