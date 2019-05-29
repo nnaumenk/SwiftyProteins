@@ -75,11 +75,13 @@ extension ProteinViewController {
             if DataController.sticks.contains(where: { $0.number1 == number1 && $0.number2 == number2 }) {
                 continue
             }
+            if number1 > DataController.atoms.count { continue }
             let atom1 = DataController.atoms[number1 - 1]
             let x1 = atom1.x
             let y1 = atom1.y
             let z1 = atom1.z
             
+            if number2 > DataController.atoms.count { continue }
             let atom2 = DataController.atoms[number2 - 1]
             let x2 = atom2.x
             let y2 = atom2.y
