@@ -9,7 +9,6 @@
 import Foundation
 
 struct Atom {
-    var number: Int
     var name: String
     var x: Float
     var y: Float

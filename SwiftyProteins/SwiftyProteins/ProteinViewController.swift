@@ -13,111 +13,31 @@ import SceneKit
 
 extension ProteinViewController {
     
-    func getLigand() {
+    func getLigand(fileFormat: String, coords: String) {
+        
+        
         let ligand = DataController.currentLigand!
-        let url = "http://ligand-expo.rcsb.org/reports/\(ligand.first!)/\(ligand)/\(ligand)_ideal.pdb"
+        let url = "http://ligand-expo.rcsb.org/reports/\(ligand.first!)/\(ligand)/\(ligand)_\(coords).\(fileFormat)"
+        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
         Alamofire.request(url).responseString { response in
-            guard let result = response.result.value else { return }
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             
-            self.ligandInfo = result
+            guard let result = response.result.value else { return }
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            
+            self.dataParser(data: result, fileFormat: fileFormat)
+            self.drawBalls()
+            self.drawSticks(radius: CGFloat(self.stickThickness!.value))
         }
     }
 }
 
+
+
+
 extension ProteinViewController {
-    
-    func atom(_ words: [Substring.SubSequence]) {
-        
-        let name: String
-        let number : Int
-        let x: Float
-        let y: Float
-        let z: Float
-        
-        //name = String(words[2]).trimmingCharacters(in: CharacterSet.decimalDigits)
-        name = String(describing: words[2].first!)
-        
-        if let element = Int(words[1]) {
-            number = element
-        } else { return }
-        
-        if let coord = Float(words[6]) {
-            x = coord
-        } else { return }
-        
-        if let coord = Float(words[7]) {
-            y = coord
-        } else { return }
-        
-        if let coord = Float(words[8]) {
-            z = coord
-        } else { return }
-        
-        let atom = Atom(number: number, name: name, x: x, y: y, z: z)
-        DataController.atoms.append(atom)
-    }
-    
-    func connect(_ words: [Substring.SubSequence]) {
-        
-        let number1: Int
-        var number2: Int
-        
-        if let element = Int(words[1]) {
-            number1 = element
-        } else { return }
-        
-        for i in 2 ..< words.count {
-            
-            if let element = Int(words[i]) {
-                number2 = element
-            } else { continue }
-            
-            if DataController.sticks.contains(where: { $0.number1 == number1 && $0.number2 == number2 }) {
-                continue
-            }
-            if number1 > DataController.atoms.count { continue }
-            let atom1 = DataController.atoms[number1 - 1]
-            let x1 = atom1.x
-            let y1 = atom1.y
-            let z1 = atom1.z
-            
-            if number2 > DataController.atoms.count { continue }
-            let atom2 = DataController.atoms[number2 - 1]
-            let x2 = atom2.x
-            let y2 = atom2.y
-            let z2 = atom2.z
-            
-            let stick = Stick(number1: number1, number2: number2, x1: x1, y1: y1, z1: z1, x2: x2, y2: y2, z2: z2)
-            
-            DataController.sticks.append(stick)
-            
-        }
-    }
-    
-    func parseData(string: String) {
-        
-        DataController.atoms = []
-        DataController.sticks = []
-        
-        let strings = string.split(separator: "\n")
-        for string in strings {
-            let words = string.split(separator: " ")
-            switch words[0] {
-                
-            case "ATOM": atom(words)
-            case "CONECT": connect(words)
-                
-            default: break
-            }
-        }
-        if DataController.atoms.count == 0 {
-            showAlertController("ligand error") { action -> Void in
-                self.performSegue(withIdentifier: "unwindToProteinListViewController", sender: nil)
-            }
-        }
-        
-    }
-    
     
     func getColor(name: String) -> UIColor {
         
@@ -176,7 +96,7 @@ extension ProteinViewController {
         }
     }
     
-    func drawSticks(radius: CGFloat = 0.04) {
+    func drawSticks(radius: CGFloat) {
         
         for stick in DataController.sticks {
             let twoPointsNode = SCNNode()
@@ -190,15 +110,8 @@ class ProteinViewController: UIViewController {
 
     @IBOutlet weak var scnView: SCNView!
     @IBOutlet weak var preferencesView: UIView!
+    @IBOutlet weak var stickThickness: UISlider!
     
-    var ligandInfo: String! {
-        didSet(newValue) {
-            parseData(string: ligandInfo)
-            drawBalls()
-            drawSticks()
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        }
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         
@@ -239,13 +152,14 @@ class ProteinViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("loaded")
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        getLigand()
         
         scnView.scene = SCNScene()
-        //scnView.autoenablesDefaultLighting = true
+        scnView.autoenablesDefaultLighting = true
         scnView.allowsCameraControl = true
+        
+        getLigand(fileFormat: "pdb", coords: "model")
+        
+        
 
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
@@ -257,8 +171,8 @@ class ProteinViewController: UIViewController {
        
         
     }
-
-    
+    http://ligand-expo.rcsb.org/reports/1/10R/10R_ideal.pdb
+    http://ligand-expo.rcsb.org/reports/1/10R/10R_model.pdb
     
     @IBAction func stickThicknessChanged(_ sender: UISlider) {
         removeSticks()
@@ -267,8 +181,31 @@ class ProteinViewController: UIViewController {
         
     }
     
+    @IBAction func fileFormatChanged(_ sender: UISegmentedControl) {
+        
+        let rootNode = scnView.scene?.rootNode
+        if let nodes = rootNode?.childNodes {
+            for node in nodes {
+                node.removeFromParentNode()
+            }
+        }
+        
+       // http://ligand-expo.rcsb.org/reports/1/10R/10R_model.sdf
+        
+        switch sender.selectedSegmentIndex {
+            
+        case 0: getLigand(fileFormat: "pdb", coords: "ideal")
+        case 1: getLigand(fileFormat: "sdf", coords: "ideal")
+        
+        default: break
+        }
+        
+    }
+    
+    
     @IBAction func preferencesClicked(_ sender: Any) {
         
+        print("1", DataController.sticks.count)
         if preferencesView.isHidden { preferencesView.isHidden = false }
         else { preferencesView.isHidden = true }
     }
