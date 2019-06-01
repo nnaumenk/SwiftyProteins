@@ -21,11 +21,23 @@ extension ProteinViewController {
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
-        Alamofire.request(url).responseString { response in
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 4
+        configuration.timeoutIntervalForResource = 4 // seconds
+        
+        alamofireManager = Alamofire.SessionManager(configuration: configuration)
+        
+        alamofireManager.request(url).responseString { response in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             
+            if let error = response.error {
+                self.showAlertController(error.localizedDescription) { action -> Void in
+                    self.performSegue(withIdentifier: "unwindToProteinListViewController", sender: nil)
+                    return
+                }
+            }
+            
             guard let result = response.result.value else { return }
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             
             self.dataParser(data: result, fileFormat: fileFormat)
             self.drawBalls()
@@ -98,6 +110,8 @@ extension ProteinViewController {
     
     func drawSticks(radius: CGFloat) {
         
+        //if DataController.s
+        
         for stick in DataController.sticks {
             let twoPointsNode = SCNNode()
             scnView.scene?.rootNode.addChildNode(twoPointsNode.buildLineInTwoPointsWithRotation(
@@ -108,9 +122,15 @@ extension ProteinViewController {
 
 class ProteinViewController: UIViewController {
 
+    
+    var alamofireManager : Alamofire.SessionManager!
+    
     @IBOutlet weak var scnView: SCNView!
     @IBOutlet weak var preferencesView: UIView!
     @IBOutlet weak var stickThickness: UISlider!
+    
+    @IBOutlet weak var fileFormatSegment: UISegmentedControl!
+    @IBOutlet weak var coordModelSegment: UISegmentedControl!
     
     
     override func viewDidAppear(_ animated: Bool) {
@@ -118,6 +138,9 @@ class ProteinViewController: UIViewController {
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
+        
+        //if !preferencesView.isHidden { preferencesView.isHidden = true }
+        
         self.title = DataController.currentLigand!
         
         let location = sender.location(in: scnView)
@@ -149,6 +172,7 @@ class ProteinViewController: UIViewController {
         
 //        scnView.scene?.rootNode.addChildNode(cameraNode)
     }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,8 +195,8 @@ class ProteinViewController: UIViewController {
        
         
     }
-    http://ligand-expo.rcsb.org/reports/1/10R/10R_ideal.pdb
-    http://ligand-expo.rcsb.org/reports/1/10R/10R_model.pdb
+   // http://ligand-expo.rcsb.org/reports/1/10R/10R_ideal.pdb
+    //http://ligand-expo.rcsb.org/reports/1/10R/10R_model.pdb
     
     @IBAction func stickThicknessChanged(_ sender: UISlider) {
         removeSticks()
@@ -192,11 +216,34 @@ class ProteinViewController: UIViewController {
         
        // http://ligand-expo.rcsb.org/reports/1/10R/10R_model.sdf
         
+//        getLigand(fileFormat: fileFormatSegment.selectedSegmentIndex.v, coords: <#T##String#>)
+        
+        print("1", fileFormatSegment)
+        
+//        switch sender.selectedSegmentIndex {
+//            
+//        case 0: getLigand(fileFormat: "pdb", coords: )
+//        case 1: getLigand(fileFormat: "sdf", coords: "ideal")
+//        
+//        default: break
+//        }
+        
+    }
+    
+    @IBAction func coordModelChanged(_ sender: UISegmentedControl) {
+        
+        let rootNode = scnView.scene?.rootNode
+        if let nodes = rootNode?.childNodes {
+            for node in nodes {
+                node.removeFromParentNode()
+            }
+        }
+        
         switch sender.selectedSegmentIndex {
             
         case 0: getLigand(fileFormat: "pdb", coords: "ideal")
         case 1: getLigand(fileFormat: "sdf", coords: "ideal")
-        
+            
         default: break
         }
         
@@ -205,7 +252,9 @@ class ProteinViewController: UIViewController {
     
     @IBAction func preferencesClicked(_ sender: Any) {
         
-        print("1", DataController.sticks.count)
+    
+        if DataController.atoms.isEmpty { return }
+        
         if preferencesView.isHidden { preferencesView.isHidden = false }
         else { preferencesView.isHidden = true }
     }

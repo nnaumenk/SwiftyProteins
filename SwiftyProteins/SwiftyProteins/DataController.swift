@@ -10,8 +10,8 @@ import Foundation
 
 struct DataController {
     
-    static var atoms : [Atom]!
-    static var sticks : [Stick]!
+    static var atoms : [Atom] = []
+    static var sticks : [Stick] = []
     
     static var currentLigand: String?
     static let allLigands = [

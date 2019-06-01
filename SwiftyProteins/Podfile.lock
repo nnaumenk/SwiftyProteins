@@ -4,9 +4,9 @@ PODS:
   - YLProgressBar (3.11.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.0)
-  - SwiftyXMLParser (~> 3.0)
-  - YLProgressBar (~> 3.11.0)
+  - Alamofire
+  - SwiftyXMLParser
+  - YLProgressBar
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -19,6 +19,6 @@ SPEC CHECKSUMS:
   SwiftyXMLParser: 9c6cc0310e778266a63d8eba50d9e07925aab0fb
   YLProgressBar: 0c0796a6e9b5e5d5040d15c8911e802b67ccb939
 
-PODFILE CHECKSUM: d94e46a329d5ce40a10291f20f61d47f75d2122e
+PODFILE CHECKSUM: d7b661225871e16852363eb8a8f47fc3aa0d4f28
 
 COCOAPODS: 1.6.1

@@ -208,19 +208,39 @@
                                             <action selector="fileFormatChanged:" destination="635-tk-Qw8" eventType="valueChanged" id="dqM-Ud-YcY"/>
                                         </connections>
                                     </segmentedControl>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="CnQ-LE-yob">
+                                        <rect key="frame" x="0.0" y="97" width="192" height="29"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="2KU-An-AaL"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="Ideal mode"/>
+                                            <segment title="Experimental"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="coordModelChanged:" destination="635-tk-Qw8" eventType="valueChanged" id="yMP-D2-AK7"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="GIM-G0-Qzp">
+                                        <rect key="frame" x="99" y="133" width="93" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </slider>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="sWh-Ng-5QA" firstAttribute="leading" secondItem="C9A-zh-ypI" secondAttribute="leading" id="4zb-Uk-41y"/>
+                                    <constraint firstAttribute="trailing" secondItem="CnQ-LE-yob" secondAttribute="trailing" constant="8" id="BsQ-w4-1dP"/>
                                     <constraint firstItem="a0T-uK-04C" firstAttribute="leading" secondItem="C9A-zh-ypI" secondAttribute="leading" id="EAl-B7-Xv0"/>
                                     <constraint firstAttribute="height" constant="200" id="O6g-yD-4Yu"/>
                                     <constraint firstAttribute="width" constant="200" id="RHq-tZ-3UO"/>
                                     <constraint firstAttribute="trailing" secondItem="a0T-uK-04C" secondAttribute="trailing" constant="8" id="SbD-nn-ftl"/>
+                                    <constraint firstItem="CnQ-LE-yob" firstAttribute="leading" secondItem="C9A-zh-ypI" secondAttribute="leading" id="Z3t-oX-jQS"/>
                                     <constraint firstItem="pUZ-Fi-SMv" firstAttribute="top" secondItem="C9A-zh-ypI" secondAttribute="top" constant="16" id="aSY-Rg-FwB"/>
                                     <constraint firstItem="pUZ-Fi-SMv" firstAttribute="top" secondItem="C9A-zh-ypI" secondAttribute="top" constant="16" id="hu4-kQ-TlK"/>
                                     <constraint firstItem="a0T-uK-04C" firstAttribute="top" secondItem="sWh-Ng-5QA" secondAttribute="bottom" constant="8" id="kBi-s4-XRG"/>
                                     <constraint firstAttribute="trailing" secondItem="pUZ-Fi-SMv" secondAttribute="trailing" constant="8" id="tRY-IR-els"/>
                                     <constraint firstItem="sWh-Ng-5QA" firstAttribute="top" secondItem="C9A-zh-ypI" secondAttribute="top" constant="8" id="uIN-B9-ZrL"/>
+                                    <constraint firstItem="CnQ-LE-yob" firstAttribute="top" secondItem="a0T-uK-04C" secondAttribute="bottom" constant="8" id="vyp-gG-yyY"/>
                                     <constraint firstAttribute="trailing" secondItem="pUZ-Fi-SMv" secondAttribute="trailing" constant="8" id="y5w-AC-i6d"/>
                                 </constraints>
                             </view>
@@ -244,6 +264,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="coordModelSegment" destination="CnQ-LE-yob" id="Joe-Mg-kRB"/>
+                        <outlet property="fileFormatSegment" destination="a0T-uK-04C" id="mrH-jM-LlU"/>
                         <outlet property="preferencesView" destination="C9A-zh-ypI" id="Dil-eh-kRh"/>
                         <outlet property="scnView" destination="f2z-W1-btD" id="TYS-sA-Abe"/>
                         <outlet property="stickThickness" destination="pUZ-Fi-SMv" id="IC9-bo-TOh"/>

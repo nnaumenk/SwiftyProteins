@@ -92,19 +92,29 @@ class LoginViewController: UIViewController {
             return
         }
         
-        
         performSegue(withIdentifier: "segueToProteinListViewController", sender: nil)
+        
+        textBoxLogin.text?.removeAll()
+        textBoxPassword.text?.removeAll()
+        textBoxLogin.resignFirstResponder()
+        textBoxPassword.resignFirstResponder()
     }
     
     ///////////////////////////////////////////////////////// actions
     
+    @objc func notificationWillResignActive() {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
     
     func addNotifications() {
-        NotificationCenter.default.addObserver(forName: .UIApplicationWillResignActive, object: nil, queue: nil) { _ in
-            
-            self.navigationController?.popToRootViewController(animated: true)
-          
-        }
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(notificationWillResignActive),
+            name: UIApplication.willResignActiveNotification,
+            object: nil)
+        
+     
     }
     
     ////////////////////////////////////////////////////// view life cycle
