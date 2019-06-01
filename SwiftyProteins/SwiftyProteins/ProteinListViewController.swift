@@ -8,6 +8,20 @@
 
 import UIKit
 
+extension ProteinListViewController {
+    
+    func ligandParser() {
+        
+        if DataController.allLigands != nil { return }
+        
+        guard let filepath = Bundle.main.path(forResource: "ligands", ofType: "txt") else { return }
+        guard let fileContent = try? String(contentsOfFile: filepath) else { return }
+        
+        DataController.allLigands = fileContent.components(separatedBy: "\n")
+    }
+    
+}
+
 extension ProteinListViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -60,8 +74,7 @@ class ProteinListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // self.navigationItem.hidesSearchBarWhenScrolling = false
-        //searchBar.hidesSearchBarWhenScrolling = false
+        ligandParser()
         allLigands = DataController.allLigands
     }
   

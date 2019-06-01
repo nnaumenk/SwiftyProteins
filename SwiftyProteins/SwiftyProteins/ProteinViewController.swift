@@ -13,11 +13,11 @@ import SceneKit
 
 extension ProteinViewController {
     
-    func getLigand(fileFormat: String, coords: String) {
+    func getLigand(fileFormat: String, coordModel: String) {
         
         
         let ligand = DataController.currentLigand!
-        let url = "http://ligand-expo.rcsb.org/reports/\(ligand.first!)/\(ligand)/\(ligand)_\(coords).\(fileFormat)"
+        let url = "http://ligand-expo.rcsb.org/reports/\(ligand.first!)/\(ligand)/\(ligand)_\(coordModel).\(fileFormat)"
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
@@ -45,9 +45,6 @@ extension ProteinViewController {
         }
     }
 }
-
-
-
 
 extension ProteinViewController {
     
@@ -122,7 +119,6 @@ extension ProteinViewController {
 
 class ProteinViewController: UIViewController {
 
-    
     var alamofireManager : Alamofire.SessionManager!
     
     @IBOutlet weak var scnView: SCNView!
@@ -139,7 +135,7 @@ class ProteinViewController: UIViewController {
     
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         
-        //if !preferencesView.isHidden { preferencesView.isHidden = true }
+        if !preferencesView.isHidden { preferencesView.isHidden = true }
         
         self.title = DataController.currentLigand!
         
@@ -154,26 +150,9 @@ class ProteinViewController: UIViewController {
         if !(node.geometry is SCNSphere) { return }
         
         self.title = node.name!
-//
-//        node.camera = SCNCamera()
-////
-//        let cameraNode = SCNNode()
-////                // 2
-//        cameraNode.camera = SCNCamera()
-       // scnView.pointOfView?.camera.x
-        
-//        let x =  node.position.x / 2
-//        let y =  node.position.y / 2
-//        let z =  node.position.z / 2
-        
-        
-        
-        //scnView.pointOfView?.position = SCNVector3(x, y, z)
-        
-//        scnView.scene?.rootNode.addChildNode(cameraNode)
+
     }
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -181,22 +160,12 @@ class ProteinViewController: UIViewController {
         scnView.autoenablesDefaultLighting = true
         scnView.allowsCameraControl = true
         
-        getLigand(fileFormat: "pdb", coords: "model")
-        
-        
-
+//        getLigand(fileFormat: "pdb", coordModel: "model")
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         scnView.addGestureRecognizer(tap)
         scnView.isUserInteractionEnabled = true
-        //scnView.pointOfView.set
-        
-        // function which is triggered when handleTap is called
-       
-        
     }
-   // http://ligand-expo.rcsb.org/reports/1/10R/10R_ideal.pdb
-    //http://ligand-expo.rcsb.org/reports/1/10R/10R_model.pdb
     
     @IBAction func stickThicknessChanged(_ sender: UISlider) {
         removeSticks()
@@ -205,7 +174,7 @@ class ProteinViewController: UIViewController {
         
     }
     
-    @IBAction func fileFormatChanged(_ sender: UISegmentedControl) {
+    @IBAction func sourceFileChanged(_ sender: Any) {
         
         let rootNode = scnView.scene?.rootNode
         if let nodes = rootNode?.childNodes {
@@ -214,41 +183,27 @@ class ProteinViewController: UIViewController {
             }
         }
         
-       // http://ligand-expo.rcsb.org/reports/1/10R/10R_model.sdf
+        let fileFormat: String!
+        let coordModel: String!
         
-//        getLigand(fileFormat: fileFormatSegment.selectedSegmentIndex.v, coords: <#T##String#>)
+        switch fileFormatSegment.selectedSegmentIndex {
         
-        print("1", fileFormatSegment)
+        case 0: fileFormat = "pdb"
+        case 1: fileFormat = "sdf"
         
-//        switch sender.selectedSegmentIndex {
-//            
-//        case 0: getLigand(fileFormat: "pdb", coords: )
-//        case 1: getLigand(fileFormat: "sdf", coords: "ideal")
-//        
-//        default: break
-//        }
-        
-    }
-    
-    @IBAction func coordModelChanged(_ sender: UISegmentedControl) {
-        
-        let rootNode = scnView.scene?.rootNode
-        if let nodes = rootNode?.childNodes {
-            for node in nodes {
-                node.removeFromParentNode()
-            }
+        default: return
         }
         
-        switch sender.selectedSegmentIndex {
+        switch coordModelSegment.selectedSegmentIndex {
             
-        case 0: getLigand(fileFormat: "pdb", coords: "ideal")
-        case 1: getLigand(fileFormat: "sdf", coords: "ideal")
+        case 0: coordModel = "ideal"
+        case 1: coordModel = "model"
             
-        default: break
+        default: return
         }
         
+        getLigand(fileFormat: fileFormat, coordModel: coordModel)
     }
-    
     
     @IBAction func preferencesClicked(_ sender: Any) {
         
@@ -259,6 +214,34 @@ class ProteinViewController: UIViewController {
         else { preferencesView.isHidden = true }
     }
     
+    func takeScreenshot() -> UIImage? {
+
+        UIGraphicsBeginImageContext(scnView.frame.size)
+        
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        
+        view.layer.render(in: context)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return image
+    }
+    
+    
+    @IBAction func shareClicked(_ sender: Any) {
+        
+        guard let image = takeScreenshot() else { return }
+        
+        // set up activity view controller
+        let imageShare = [ image ]
+        let activityViewController = UIActivityViewController(activityItems: imageShare , applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        
+        activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.airDrop, UIActivity.ActivityType.postToFacebook ]
+        self.present(activityViewController, animated: true, completion: nil)
+    }
     
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -268,5 +251,10 @@ class ProteinViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
         self.title = DataController.currentLigand!
+        if let color = DataController.backgroundColor {
+            scnView.backgroundColor = color
+        }
     }
+    
+    @IBAction func unwindToProteinViewController(segue: UIStoryboardSegue) {}
 }
