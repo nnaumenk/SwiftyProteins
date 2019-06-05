@@ -160,7 +160,7 @@ class ProteinViewController: UIViewController {
         scnView.autoenablesDefaultLighting = true
         scnView.allowsCameraControl = true
         
-//        getLigand(fileFormat: "pdb", coordModel: "model")
+        getLigand(fileFormat: "pdb", coordModel: "ideal")
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         scnView.addGestureRecognizer(tap)
@@ -183,6 +183,11 @@ class ProteinViewController: UIViewController {
             }
         }
         
+        let segmentController = sender as! UISegmentedControl
+        if segmentController.titleForSegment(at: 0) == "Ideal mode" {
+            scnView.scene = SCNScene()
+        }
+        
         let fileFormat: String!
         let coordModel: String!
         
@@ -201,7 +206,6 @@ class ProteinViewController: UIViewController {
             
         default: return
         }
-        
         getLigand(fileFormat: fileFormat, coordModel: coordModel)
     }
     
@@ -214,28 +218,12 @@ class ProteinViewController: UIViewController {
         else { preferencesView.isHidden = true }
     }
     
-    func takeScreenshot() -> UIImage? {
-
-        UIGraphicsBeginImageContext(scnView.frame.size)
-        
-        guard let context = UIGraphicsGetCurrentContext() else { return nil }
-        
-        view.layer.render(in: context)
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        return image
-    }
-    
-    
     @IBAction func shareClicked(_ sender: Any) {
         
-        guard let image = takeScreenshot() else { return }
+        let image = scnView.snapshot()
         
-        // set up activity view controller
         let imageShare = [ image ]
+    
         let activityViewController = UIActivityViewController(activityItems: imageShare , applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view
         

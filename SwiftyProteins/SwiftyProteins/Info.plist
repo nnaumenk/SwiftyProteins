@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>123</string>
+	<string>Store and share images</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>123</string>
+	<string>Store and share images</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>NSAppTransportSecurity</key>
