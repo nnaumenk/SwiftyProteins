@@ -9,3 +9,5 @@ Application for visualizing proteins(ligands) using "Ball-and-stick model"
 - ligands are displayed in CPK coloring
 - application shows the atom type when you click on it
 - sharing modelisation through a ‘Share‘ button
+
+![SwiftyProteins](https://github.com/nnaumenk/swiftyProteins/blob/master/SwiftyProteins.gif)
