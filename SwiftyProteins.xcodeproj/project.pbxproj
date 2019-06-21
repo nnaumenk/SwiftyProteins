@@ -397,8 +397,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HBYUQK2856;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SwiftyProteins/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = UNIT.SwiftyProteins;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -413,8 +414,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HBYUQK2856;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SwiftyProteins/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = UNIT.SwiftyProteins;
 				PRODUCT_NAME = "$(TARGET_NAME)";
